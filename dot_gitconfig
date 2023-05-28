@@ -1,0 +1,20 @@
+[init]
+	defaultBranch = master
+[core]
+	autocrlf = input
+	whitespace = space-before-tab,trailing-space,cr-at-eol
+[commit]
+	gpgSign = true
+[fetch]
+	prune = true
+[pull]
+	rebase = false
+[rebase]
+	autosquash = true
+[mergetool]
+	keepBackup = false
+[tag]
+	gpgSign = true
+[user]
+	name = kPherox
+	email = kphrx@kpherox.dev
