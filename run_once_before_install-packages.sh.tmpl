@@ -1,0 +1,6 @@
+#!/bin/bash
+
+{{- if eq .chezmoi.os "darwin" -}}
+bash -c "$(curl -fsSL https://github.com/Homebrew/install/raw/master/install.sh)"
+brew bundle --no-lock --file="{{ .chezmoi.sourceDir }}/Brewfile"
+{{ end -}}
