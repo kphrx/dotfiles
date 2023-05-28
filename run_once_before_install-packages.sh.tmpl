@@ -2,5 +2,5 @@
 
 {{- if eq .chezmoi.os "darwin" -}}
 bash -c "$(curl -fsSL https://github.com/Homebrew/install/raw/master/install.sh)"
-brew bundle --no-lock --file="{{ .chezmoi.sourceDir }}/Brewfile"
+brew bundle --no-lock --file={{ joinPath .chezmoi.sourceDir "Brewfile" | quote }}
 {{ end -}}

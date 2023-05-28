@@ -1,0 +1,11 @@
+{{ if eq .chezmoi.os "darwin" -}}
+{{ joinPath .chezmoi.sourceDir "gitignore" "Global" "macOS.gitignore" | include }}
+{{ joinPath .chezmoi.sourceDir "gitignore" "Global" "Xcode.gitignore" | include }}
+{{ else if eq .chezmoi.os "linux" -}}
+{{ joinPath .chezmoi.sourceDir "gitignore" "Global" "Linux.gitignore" | include }}
+{{ end -}}
+
+# specified editor config
+{{ joinPath .chezmoi.sourceDir "gitignore" "Global" "JetBrains.gitignore" | include }}
+{{ joinPath .chezmoi.sourceDir "gitignore" "Global" "Vim.gitignore" | include }}
+{{ joinPath .chezmoi.sourceDir "gitignore" "Global" "VisualStudioCode.gitignore" | include }}
