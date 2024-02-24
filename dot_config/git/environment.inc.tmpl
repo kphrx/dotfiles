@@ -1,0 +1,10 @@
+[user]
+	name = {{ .name }}
+	email = {{ .email }}
+[ghq]
+{{- if eq .chezmoi.os "darwin" }}
+	root = ~/Developer/ghq
+{{- else }}
+	root = ~/ghq
+{{- end }}
+	user = {{ .username }}

@@ -5,8 +5,10 @@ sourceDir = {{ .chezmoi.sourceDir | quote }}
     codespaces = {{ $codespaces }}
 {{- if $codespaces }}{{/* Codespaces dotfiles setup is non-interactive, so set an email address */}}
     name = "kPherox"
+    username = "kphrx"
     email = "kphrx@kpherox.dev"
 {{- else }}{{/* Interactive setup, so prompt for an email address */}}
     name = {{ promptString "name" | quote }}
+    username = {{ promptString "username" | quote }}
     email = {{ promptString "email" | quote }}
 {{- end }}

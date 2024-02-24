@@ -1,8 +1,14 @@
+[include]
+	path = environment.inc
+	path = insteadof.inc
+	path = insteadof.secret.inc
+	path = credential.inc
 [init]
 	defaultBranch = master
 [core]
 	autocrlf = input
 	whitespace = space-before-tab,trailing-space,cr-at-eol
+	editor = vim
 [commit]
 	gpgSign = true
 [fetch]
@@ -11,16 +17,23 @@
 	rebase = false
 [rebase]
 	autosquash = true
+[merge]
+	tool = vimdiff
 [mergetool]
 	keepBackup = false
 [tag]
 	gpgSign = true
-[user]
-	name = {{ .name }}
-	email = {{ .email }}
 [credential]
 	helper = manager
 [alias]
 	root = rev-parse --show-toplevel
 	current = branch --show-current
 	graph = log --graph --oneline --decorate=full --date=iso --format=\"%C(yellow)%h%C(reset) %C(magenta)[%ad]%C(reset) %C(cyan)@%an%C(reset)%C(auto)%d%C(reset) %s\"
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+	process = git-lfs filter-process
+[blame]
+	ignoreRevsFile = .git-blame-ignore-revs
+	markIgnoredLines = true
