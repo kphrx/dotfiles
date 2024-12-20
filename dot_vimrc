@@ -1,0 +1,40 @@
+vim9script
+
+## vim settings
+set encoding=utf-8
+scriptencoding utf-8
+
+if has('python3_compiled')
+  set pyxversion=3
+elseif has('python_compiled')
+  set pyxversion=2
+endif
+
+filetype plugin indent on
+
+set backupdir=$HOME/.vim/backup
+set clipboard=unnamed
+set directory=$HOME/.vim/backup
+set hidden
+set incsearch
+set mouse=a
+set completeopt=menuone
+set ttimeoutlen=50
+set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
+set grepprg=grep\ -nh
+
+set runtimepath+=/usr/local/opt/fzf
+
+nnoremap <ESC><ESC> :nohlsearch<CR>
+
+nmap <C-p> <Plug>AirlineSelectPrevTab
+nmap <C-n> <Plug>AirlineSelectNextTab
+
+nnoremap <S-q> :w\|bd<CR>
+
+## vim-lsp-settings
+g:lsp_settings_filetype_perl = ['slp']
+g:lsp_settings_filetype_html = ['html-languageserver', 'typescript-language-server']
+g:lsp_settings_filetype_typescript = ['typescript-language-server', 'deno']
+
+command! LspTSDocumentFormatSync exe 'LspDocumentFormatSync --server=efm-langserver'

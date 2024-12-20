@@ -1,0 +1,11 @@
+{
+  "rust-analyzer" : {
+    "cmd": ["rust-analyzer"]
+  },
+  "sourcekit-lsp" : {
+    "cmd": ["sourcekit-lsp"]
+  },
+  "efm-langserver" : {
+    "disabled": false
+  }
+}
