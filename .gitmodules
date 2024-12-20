@@ -1,3 +1,6 @@
 [submodule "gitignore"]
 	path = gitignore
 	url = https://github.com/github/gitignore.git
+[submodule "vim-jetpack"]
+	path = vim-jetpack
+	url = https://github.com/tani/vim-jetpack.git
