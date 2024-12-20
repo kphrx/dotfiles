@@ -2,6 +2,9 @@
 
 {{- if eq .chezmoi.os "darwin" -}}
 bash -c "$(curl -fsSL https://github.com/Homebrew/install/raw/master/install.sh)"
+brew install bitwarden-cli
 brew bundle --no-lock --file={{ joinPath .chezmoi.sourceDir "Brewfile" | quote }}
 brew autoupdate start $HOMEBREW_AUTO_UPDATE_SECS --upgrade --cleanup --sudo
 {{ end -}}
+
+bw config server https://vault.kpherox.dev
