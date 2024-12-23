@@ -1,0 +1,1 @@
+rm -f "${FNM_MULTISHELL_PATH}"

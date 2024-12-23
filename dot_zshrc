@@ -1,0 +1,58 @@
+function load_with_compile {
+  ensure_zcompiled $1
+  builtin source $1
+}
+function ensure_zcompiled {
+  local compiled="$1.zwc"
+  if [[ ! -r "$compiled" || "$1" -nt "$compiled" ]]; then
+    echo "Compiling $1"
+    zcompile $1
+  fi
+}
+ensure_zcompiled ~/.zlogin
+ensure_zcompiled ~/.zprofile
+ensure_zcompiled ~/.zshenv
+ensure_zcompiled ~/.zshrc
+ensure_zcompiled ~/.zlogout
+
+# Prompt theme
+ZSH_THEME="powerline"
+
+# Core settings
+[ -s "${HOME}/.zsh.d/init.zsh" ] && load_with_compile "${HOME}/.zsh.d/init.zsh"
+
+##########################
+##                      ##
+##  User configuration  ##
+##                      ##
+##########################
+
+
+##       ##
+# MANPATH #
+##       ##
+
+#manpath+=(/usr/local/share/man /usr/local/man /usr/share/man /usr/man)
+
+##     ##
+# Other #
+##     ##
+#
+alias -g U='| xxd -b -c1 | awk '"'"'{match($2, "^1*0"); if(RLENGTH!=2) print ""; printf substr($2,RLENGTH+1)}'"'"' | xargs -I ZZ dc -e "16o2i ZZ p"'
+
+#type perl > /dev/null 2>&1 && [[ -z "${PERL_MB_OPT}" ]] && [[ -z "${PERL_MM_OPT}" ]] && eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
+
+#[ ! -e "/usr/local/bin/keys" ] && ln -s /Applications/Keys.app/Contents/Resources/bin/keys{,d} /usr/local/bin/
+#type keys > /dev/null 2>&1 && [[ -z "${KEYS_AUTH}" ]] && eval $(keys auth)
+
+## Minecraft save directory
+export MINECRAFT_DIR="${HOME}/Library/Application Support/minecraft"
+
+# export TOOLCHAINS="swift"
+
+# zsh startup speed
+# if (which zprof > /dev/null 2>&1) ;then
+#     zprof
+# fi
+
+unfunction 'load_with_compile'
