@@ -1,0 +1,24 @@
+# Open in browser
+#browser /usr/bin/open -a "/Applications/Firefox Nightly.app" '%u'
+browser "open -g -a 'Firefox Nightly' %u"
+
+
+# Highlight
+color background          white     color8
+color listnormal          color12   color8
+color listnormal_unread   color14   color8   bold
+color listfocus           white     color10
+color listfocus_unread    white     color10  bold
+color title               white     color0
+color info                color12   color0
+color hint-key            color14   color0    bold
+color hint-keys-delimiter color12   color0
+color hint-separator      color12   color0    bold
+color hint-description    color12   color0
+#color article             white     black
+
+
+# Refresh options
+refresh-on-startup yes
+auto-reload yes
+suppress-first-reload yes
