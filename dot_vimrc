@@ -1,16 +1,17 @@
 vim9script
 
+filetype plugin indent on
+
 ## vim settings
 set encoding=utf-8
 scriptencoding utf-8
+set fileencodings=utf-8,cp932
 
 if has('python3_compiled')
   set pyxversion=3
 elseif has('python_compiled')
   set pyxversion=2
 endif
-
-filetype plugin indent on
 
 set backupdir=$HOME/.vim/backup
 set clipboard=unnamed
