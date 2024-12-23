@@ -6,5 +6,5 @@ init-license=MIT
 strict-engines=true
 {{- if not .codespaces }}
 //registry.npmjs.org/:_authToken={{ (bitwardenFields "item" "registry.npmjs.org").token.value }}
-@kphrx:registry=https://registry.npmjs.org/
+@{{ .username }}:registry=https://registry.npmjs.org/
 {{- end }}
