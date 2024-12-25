@@ -24,7 +24,7 @@ export HOMEBREW_NO_ENV_HINTS=1
 
 # Completions
 ## for zsh-completions
-export fpath=($HOME/.zfunc $HOME/.zsh.d/functions /usr/local/share/zsh/functions /usr/local/share/zsh-completions /usr/local/Homebrew/completions/zsh $fpath)
+export fpath=($HOME/.zsh.d/functions $(brew --prefix rustup)/share/zsh/site-functions /usr/local/share/zsh/functions /usr/local/share/zsh-completions /usr/local/Homebrew/completions/zsh $fpath)
 
 . "$HOME/.cargo/env"
 . "$HOME/.deno/env"
@@ -47,6 +47,9 @@ DOCKER_PATH="${HOME}/.rd/bin"
 # DOCKER_PATH="/Applications/Docker.app/Contents/Resources/bin"
 
 ## Homebrew
+
+### rustup path
+RUSTUP_PATH="$(brew --prefix rustup)/bin"
 
 ### fzf path
 FZF_PATH="$(brew --prefix fzf)/bin"
@@ -89,7 +92,7 @@ GEM_PATH="${GEM_HOME}/bin"
 QT_PATH="$(brew --prefix qt)/bin"
 
 ## Combine
-path=($PLATFORM_TOOLS_PATH $FZF_PATH $DOCKER_PATH $COMPOSER_PATH $GOBIN $WINESTABLE_PATH $SQLITE_PATH $POSTGRES_PATH $OPENSSL_PATH $CURL_PATH $UNZIP_PATH $RUBY_PATH $ICU4C_PATH $OPENLDAP_PATH $LIBPQ_PATH $GEM_PATH $QT_PATH $path)
+path=($PLATFORM_TOOLS_PATH $RUSTUP_PATH $FZF_PATH $DOCKER_PATH $COMPOSER_PATH $GOBIN $WINESTABLE_PATH $SQLITE_PATH $POSTGRES_PATH $OPENSSL_PATH $CURL_PATH $UNZIP_PATH $RUBY_PATH $ICU4C_PATH $OPENLDAP_PATH $LIBPQ_PATH $GEM_PATH $QT_PATH $path)
 
 path=("${HOME}/.local/bin" $path)
 
