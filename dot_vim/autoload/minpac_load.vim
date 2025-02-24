@@ -28,7 +28,7 @@ export def Init()
   minpac#add('kphrx/autodirmake.vim')
 
   minpac#add('airblade/vim-gitgutter')
-  # minpac#add('tpope/vim-fugitive')
+  minpac#add('tpope/vim-fugitive')
 
   minpac#add('vim-airline/vim-airline')
   minpac#add('enricobacis/vim-airline-clock')
@@ -40,33 +40,34 @@ export def Init()
   minpac#add('girishji/vimcomplete', { name: 'autocomplete.vim' })
   minpac#add('yegappan/lsp')
   minpac#add('mattn/vim-lsp-settings')
-  # minpac#add('kphrx/vim-lsp-settings', { branch: 'add-biomejs' })
   minpac#add('normen/vim-lsp-settings-adapter')
 
   # minpac#add('dense-analysis/ale')
   # minpac#add('rhysd/vim-lsp-ale')
 
+  minpac#add('github/copilot.vim')
+
   minpac#add('tpope/vim-commentary')
+  minpac#add('antoyo/vim-licenses')
 
   minpac#add('cohama/lexima.vim')
 
-  minpac#add('qnighy/lalrpop.vim')
+  # minpac#add('qnighy/lalrpop.vim')
 
   # minpac#add('stephenway/postcss.vim')
 
   # minpac#add('keith/swift.vim')
+  minpac#add('vapor-community/vim-leaf')
+  # minpac#add('darfink/vim-plist')
 
   # minpac#add('posva/vim-vue')
-
   # minpac#add('wuelnerdotexe/vim-astro')
 
   # minpac#add('chrisbra/csv.vim')
 
-  minpac#add('elixir-editors/vim-elixir', { type: 'opt' })
+  # minpac#add('elixir-editors/vim-elixir', { type: 'opt' })
 
   # minpac#add('udalov/kotlin-vim', { type: 'opt' })
 
   # minpac#add('ziglang/zig.vim')
-
-  # minpac#add('darfink/vim-plist')
 enddef
