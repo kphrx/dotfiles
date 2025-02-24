@@ -11,6 +11,7 @@ else
 fi
 
 ## Homebrew env var
+eval "$(brew shellenv)"
 export HOMEBREW_GITHUB_API_TOKEN={{ (bitwardenFields "item" "homebrew").github_token.value | quote }}
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_AUTO_UPDATE_SECS="21600"
@@ -23,11 +24,14 @@ export HOMEBREW_NO_ENV_HINTS=1
 ##    ##
 
 # Completions
-## for zsh-completions
 export fpath=($HOME/.zsh.d/functions $(brew --prefix rustup)/share/zsh/site-functions /usr/local/share/zsh/functions /usr/local/share/zsh-completions /usr/local/Homebrew/completions/zsh $fpath)
 
-. "$HOME/.cargo/env"
-. "$HOME/.deno/env"
+if [ -s "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+else
+    path+="${HOME}/.cargo/bin"
+fi
+[ -s "$HOME/.deno/env" ] && . "$HOME/.deno/env"
 
 ## PHP Composer path
 COMPOSER_PATH="${HOME}/.composer/vendor/bin"
@@ -39,9 +43,6 @@ COMPOSER_PATH="${HOME}/.composer/vendor/bin"
 ## Android SDK Platform Tools
 ANDROID_SDK="/usr/local/share/android-commandlinetools"
 PLATFORM_TOOLS_PATH="${ANDROID_SDK}/platform-tools"
-
-## Rancher.app path
-DOCKER_PATH="${HOME}/.rd/bin"
 
 ## Docker.app
 # DOCKER_PATH="/Applications/Docker.app/Contents/Resources/bin"
@@ -58,7 +59,7 @@ FZF_PATH="$(brew --prefix fzf)/bin"
 SQLITE_PATH="$(brew --prefix sqlite)/bin"
 
 ### PostgreSQK path
-POSTGRES_PATH="$(brew --prefix postgresql@16)/bin"
+POSTGRES_PATH="$(brew --prefix postgresql@17)/bin"
 
 ### OpenSSL path
 OPENSSL_PATH=("$(brew --prefix openssl@3)/bin" "$(brew --prefix openssl@1.1)/bin")
@@ -94,6 +95,13 @@ QT_PATH="$(brew --prefix qt)/bin"
 ## Combine
 path=($PLATFORM_TOOLS_PATH $RUSTUP_PATH $FZF_PATH $DOCKER_PATH $COMPOSER_PATH $GOBIN $WINESTABLE_PATH $SQLITE_PATH $POSTGRES_PATH $OPENSSL_PATH $CURL_PATH $UNZIP_PATH $RUBY_PATH $ICU4C_PATH $OPENLDAP_PATH $LIBPQ_PATH $GEM_PATH $QT_PATH $path)
 
+## swift path
+# Added by swiftly
+. "/Users/kphrx/Library/Application Support/swiftly/env.sh"
+if [ -f "$(xcode-select -p)/usr/bin/xcodebuild" ] > /dev/null 2>&1; then
+    [ -L "$TOOLCHAIN_PATH" ] && export TOOLCHAINS="$(plutil -extract CFBundleIdentifier raw $TOOLCHAIN_PATH/Info.plist)"
+fi
+
 path=("${HOME}/.local/bin" $path)
 
 ### alternative nvm, fnm
@@ -103,13 +111,12 @@ type fnm > /dev/null 2>&1 && [[ -z "${FNM_MULTISHELL_PATH}" ]] && eval "$(fnm en
 
 . "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
 
+fpath=(${(u)fpath})
+path=(${(u)path})
+
 export PKG_CONFIG_PATH="$(brew --prefix curl)/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PKG_CONFIG_PATH="$(brew --prefix openssl@3)/lib/pkgconfig:$(brew --prefix openssl@1.1)/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PKG_CONFIG_PATH="$(brew --prefix libffi)/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PKG_CONFIG_PATH="$(brew --prefix zlib)/lib/pkgconfig:$PKG_CONFIG_PATH"
 # LDFLAGS="-L$(BREW_PREFIX) -L${BREW_PREFIX}/opt/libffi/lib $LDFLAGS"
 # CPPFLAGS="-I${BREW_PREFIX}/opt/openssl@1.1/include -I${BREW_PREFIX}/opt/libffi/include $CPPFLAGS"
-
-path=(
-    ${^path}(N-/^W)
-)

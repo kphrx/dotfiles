@@ -50,10 +50,7 @@ set -g set-titles-string '#W'
 ## allow directories only (-/)
 ## reject world-writable directories (^W)
 fpath=(${ASDF_DIR}/completions $fpath)
-
-fpath=(
-    ${^fpath}(N-/^W)
-)
+fpath=(${(u)fpath})
 
 ## Enable completion
 autoload -Uz compinit
