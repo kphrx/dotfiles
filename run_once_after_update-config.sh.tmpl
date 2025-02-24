@@ -1,0 +1,7 @@
+#!/bin/bash
+
+mkdir -p ~/.vim/backup
+
+mkdir -p ~/.zsh.d/functions
+rustup completions zsh cargo > ~/.zsh.d/functions/_cargo
+swift package completion-tool generate-zsh-script > ~/.zsh.d/functions/_swift

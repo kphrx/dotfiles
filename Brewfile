@@ -83,6 +83,7 @@ brew "zola"
 brew "zsh"
 brew "zsh-completions"
 brew "gromgit/new-life/unrar"
+brew "kphrx/personal/swiftly"
 brew "reviewdog/tap/reviewdog"
 cask "android-commandlinetools"
 cask "android-file-transfer"
@@ -146,6 +147,7 @@ mas "Kindle", id: 302584613
 mas "MeddleMonkey", id: 1539631953
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
+mas "Xcode", id: 497799835
 vscode "github.codespaces"
 vscode "github.copilot"
 vscode "github.copilot-chat"
