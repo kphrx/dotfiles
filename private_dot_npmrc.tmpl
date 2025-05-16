@@ -3,7 +3,7 @@ init-author-email={{ .email }}
 init-author-name={{ .name }}
 init-version=0.1.0
 init-license=MIT
-strict-engines=true
+engine-strict=true
 {{- if not .codespaces }}
 //registry.npmjs.org/:_authToken={{ (bitwardenFields "item" "registry.npmjs.org").token.value }}
 @{{ .username }}:registry=https://registry.npmjs.org/
