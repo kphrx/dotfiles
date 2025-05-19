@@ -11,112 +11,100 @@ else
 fi
 
 ## Homebrew env var
-eval "$(brew shellenv)"
-export HOMEBREW_GITHUB_API_TOKEN={{ (bitwardenFields "item" "homebrew").github_token.value | quote }}
-export HOMEBREW_NO_AUTO_UPDATE=1
-export HOMEBREW_AUTO_UPDATE_SECS="21600"
-export HOMEBREW_INSTALL_CLEANUP=1
-export HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
-export HOMEBREW_NO_ENV_HINTS=1
+if type brew > /dev/null 2>&1 && [[ -z "$HOMEBREW_PREFIX" ]]; then
+    eval "$(brew shellenv)"
+    export HOMEBREW_GITHUB_API_TOKEN={{ (bitwardenFields "item" "homebrew").github_token.value | quote }}
+    export HOMEBREW_NO_AUTO_UPDATE=1
+    export HOMEBREW_AUTO_UPDATE_SECS="21600"
+    export HOMEBREW_INSTALL_CLEANUP=1
+    export HOMEBREW_CLEANUP_MAX_AGE_DAYS=30
+    export HOMEBREW_NO_ENV_HINTS=1
+fi
 
 ##    ##
 # PATH #
 ##    ##
 
-# Completions
-export fpath=($HOME/.zsh.d/functions $(brew --prefix rustup)/share/zsh/site-functions /usr/local/share/zsh/functions /usr/local/share/zsh-completions /usr/local/Homebrew/completions/zsh $fpath)
-
-if [ -s "$HOME/.cargo/env" ]; then
-    . "$HOME/.cargo/env"
-else
-    path+="${HOME}/.cargo/bin"
-fi
-[ -s "$HOME/.deno/env" ] && . "$HOME/.deno/env"
-
-## PHP Composer path
-COMPOSER_PATH="${HOME}/.composer/vendor/bin"
-
-## Wine Stable
-# WINESTABLE_PATH="/Applications/Wine Stable.app/Contents/Resources/start/bin"
-# WINE_PATH="/Applications/Wine Stable.app/Contents/Resources/wine/bin"
-
-## Android SDK Platform Tools
-ANDROID_SDK="/usr/local/share/android-commandlinetools"
-PLATFORM_TOOLS_PATH="${ANDROID_SDK}/platform-tools"
-
-## Docker.app
-# DOCKER_PATH="/Applications/Docker.app/Contents/Resources/bin"
-
 ## Homebrew
+if type brew > /dev/null 2>&1; then
+    RUSTUP_PREFIX="$(brew --prefix rustup)"
+    OPENLDAP_PREFIX="$(brew --prefix openldap)"
+    CURL_PREFIX="$(brew --prefix curl)"
+    LIBFFI_PREFIX="$(brew --prefix libffi)"
 
-### rustup path
-RUSTUP_PATH="$(brew --prefix rustup)/bin"
+    RUSTUP_PATH="$RUSTUP_PREFIX/bin"
+    OPENLDAP_PATH=("$OPENLDAP_PREFIX/bin" "$OPENLDAP_PREFIX/sbin")
+    CURL_PATH="$CURL_PREFIX/bin"
 
-### fzf path
-FZF_PATH="$(brew --prefix fzf)/bin"
+    FZF_PATH="$(brew --prefix fzf)/bin"
 
-### SQLite path
-SQLITE_PATH="$(brew --prefix sqlite)/bin"
+    SQLITE_PATH="$(brew --prefix sqlite)/bin"
 
-### PostgreSQK path
-POSTGRES_PATH="$(brew --prefix postgresql@17)/bin"
+    POSTGRES_PATH="$(brew --prefix postgresql@17)/bin"
 
-### OpenSSL path
-OPENSSL_PATH=("$(brew --prefix openssl@3)/bin" "$(brew --prefix openssl@1.1)/bin")
+    UNZIP_PATH="$(brew --prefix unzip)/bin"
 
-### cURL path
-CURL_PATH="$(brew --prefix curl)/bin"
+    RUBY_PATH="$(brew --prefix ruby)/bin"
 
-### unzip path
-UNZIP_PATH="$(brew --prefix unzip)/bin"
+    ICU4C_PATH="$(brew --prefix icu4c)/bin"
 
-### Ruby path
-RUBY_PATH="$(brew --prefix ruby)/bin"
+    # LLVM_PATH="$(brew --prefix llvm)/bin"
 
-### icu4c path
-ICU4C_PATH="$(brew --prefix icu4c)/bin"
+    QT_PATH="$(brew --prefix qt)/bin"
 
-### openldap path
-OPENLDAP_PATH=("$(brew --prefix openldap)/bin" "$(brew --prefix openldap)/sbin")
+    CURL_PKG_CONFIG="$CURL_PREFIX/lib/pkgconfig"
+    LIBFFI_PKG_CONFIG="$LIBFFI_PREFIX/lib/pkgconfig"
 
-### libpq path
-LIBPQ_PATH="$(brew --prefix libpq)/bin"
+    ZLIB_PKG_CONFIG="$(brew --prefix zlib)/lib/pkgconfig"
 
-### Gem path
-export GEM_HOME="$(brew --prefix)/lib/ruby/gems/3.0.0"
-GEM_PATH="${GEM_HOME}/bin"
+    export PKG_CONFIG_PATH="ZLIB_PKG_CONFIG:$LIBFFI_PKG_CONFIG:$CURL_PKG_CONFIG:$PKG_CONFIG_PATH"
+fi
 
-### LLVM path
-# LLVM_PATH="$(brew --prefix llvm)/bin"
+path=($RUSTUP_PATH $FZF_PATH $SQLITE_PATH $POSTGRES_PATH $CURL_PATH $UNZIP_PATH $RUBY_PATH $ICU4C_PATH $OPENLDAP_PATH $QT_PATH $path)
 
-### Qt5 Path
-QT_PATH="$(brew --prefix qt)/bin"
-
-## Combine
-path=($PLATFORM_TOOLS_PATH $RUSTUP_PATH $FZF_PATH $DOCKER_PATH $COMPOSER_PATH $GOBIN $WINESTABLE_PATH $SQLITE_PATH $POSTGRES_PATH $OPENSSL_PATH $CURL_PATH $UNZIP_PATH $RUBY_PATH $ICU4C_PATH $OPENLDAP_PATH $LIBPQ_PATH $GEM_PATH $QT_PATH $path)
+. "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
 
 ## swift path
 # Added by swiftly
-. "/Users/kphrx/Library/Application Support/swiftly/env.sh"
+[ -s "$HOME/Library/Application Support/swiftly/env.sh" ] && . "$HOME/Library/Application Support/swiftly/env.sh"
+path=(${(@)path:#"$SWIFTLY_BIN_DIR"})
 if [ -f "$(xcode-select -p)/usr/bin/xcodebuild" ] > /dev/null 2>&1; then
     [ -L "$TOOLCHAIN_PATH" ] && export TOOLCHAINS="$(plutil -extract CFBundleIdentifier raw $TOOLCHAIN_PATH/Info.plist)"
 fi
 
-path=("${HOME}/.local/bin" $path)
+## Android SDK Platform Tools
+ANDROID_SDK="/usr/local/share/android-commandlinetools"
+
+path=("$ANDROID_SDK/platform-tools" $path)
+
+[ -L "$GEM_HOME" ] && path=("$GEM_HOME/bin" $path)
+[ -L "$GOBIN" ] && path=($GOBIN $path)
+
+if [ -s "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+else
+    path=("$HOME/.cargo/bin" $path)
+fi
+[ -s "$HOME/.deno/env" ] && . "$HOME/.deno/env"
+
+path=("$HOME/.composer/vendor/bin" $path)
+
+path=("$HOME/.local/bin" $path)
 
 ### alternative nvm, fnm
-type fnm > /dev/null 2>&1 && [[ -z "${FNM_MULTISHELL_PATH}" ]] && eval "$(fnm env)"
+if type fnm > /dev/null 2>&1; then
+    [[ -z "$FNM_MULTISHELL_PATH" ]] && eval "$(fnm env)"
+fi
 
-# . <(rdctl completion zsh)
-
-. "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
-
-fpath=(${(u)fpath})
 path=(${(u)path})
 
-export PKG_CONFIG_PATH="$(brew --prefix curl)/lib/pkgconfig:$PKG_CONFIG_PATH"
-export PKG_CONFIG_PATH="$(brew --prefix openssl@3)/lib/pkgconfig:$(brew --prefix openssl@1.1)/lib/pkgconfig:$PKG_CONFIG_PATH"
-export PKG_CONFIG_PATH="$(brew --prefix libffi)/lib/pkgconfig:$PKG_CONFIG_PATH"
-export PKG_CONFIG_PATH="$(brew --prefix zlib)/lib/pkgconfig:$PKG_CONFIG_PATH"
-# LDFLAGS="-L$(BREW_PREFIX) -L${BREW_PREFIX}/opt/libffi/lib $LDFLAGS"
-# CPPFLAGS="-I${BREW_PREFIX}/opt/openssl@1.1/include -I${BREW_PREFIX}/opt/libffi/include $CPPFLAGS"
+# Completions
+export fpath=(/usr/local/share/zsh/functions /usr/local/share/zsh-completions $fpath)
+if type brew > /dev/null 2>&1; then
+    RUSTUP_FPATH="$RUSTUP_PREFIX/share/zsh/site-functions"
+    fpath=($RUSTUP_FPATH /usr/local/Homebrew/completions/zsh $fpath)
+fi
+
+fpath=($HOME/.zsh.d/functions $fpath)
+
+fpath=(${(u)fpath})

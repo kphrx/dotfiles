@@ -13,9 +13,8 @@ export LC_ALL=ja_JP.UTF-8
 
 # Compilation flags and path
 export LD_LIBRARY_PATH=/usr/local/lib
-export CPATH=/usr/local/include
-export LDFLAGS="-L/usr/local/lib"
 export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib"
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 # export ARCHFLAGS="-arch x86_64"
 
