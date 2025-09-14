@@ -21,6 +21,8 @@ if type brew > /dev/null 2>&1 && [[ -z "$HOMEBREW_PREFIX" ]]; then
     export HOMEBREW_NO_ENV_HINTS=1
 fi
 
+export MODRINTH_TOKEN={{ (bitwardenFields "item" "modrinth").token.value | quote }}
+
 ##    ##
 # PATH #
 ##    ##
@@ -67,7 +69,6 @@ path=($RUSTUP_PATH $FZF_PATH $SQLITE_PATH $POSTGRES_PATH $CURL_PATH $UNZIP_PATH 
 ## swift path
 # Added by swiftly
 [ -s "$HOME/Library/Application Support/swiftly/env.sh" ] && . "$HOME/Library/Application Support/swiftly/env.sh"
-path=(${(@)path:#"$SWIFTLY_BIN_DIR"})
 if [ -f "$(xcode-select -p)/usr/bin/xcodebuild" ] > /dev/null 2>&1; then
     [ -L "$TOOLCHAIN_PATH" ] && export TOOLCHAINS="$(plutil -extract CFBundleIdentifier raw $TOOLCHAIN_PATH/Info.plist)"
 fi
@@ -88,6 +89,8 @@ fi
 [ -s "$HOME/.deno/env" ] && . "$HOME/.deno/env"
 
 path=("$HOME/.composer/vendor/bin" $path)
+
+path=("$HOME/.dotnet/tools" $path)
 
 path=("$HOME/.local/bin" $path)
 

@@ -20,5 +20,10 @@ if type brew > /dev/null 2>&1; then
     export GEM_HOME="$(brew --prefix)/lib/ruby/gems/3.0.0"
 fi
 
+## .NET root path
+if type brew > /dev/null 2>&1; then
+    export DOTNET_ROOT="$(brew --prefix dotnet)/libexec"
+fi
+
 ## less
 export LESSCHARSET=UTF-8
