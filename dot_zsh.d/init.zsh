@@ -23,3 +23,7 @@ ZSH_CACHE_DIR="${ZSH}/cache"
 ## fzf load
 eval "$(fzf --zsh)"
 #[ -s "${ZSH}/fzf.zsh" ] && load_with_compile "${ZSH}/fzf.zsh"
+
+## mc load
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C "$HOME/.local/bin/mc" mc

@@ -4,6 +4,9 @@ SHELL_SESSIONS_DISABLE=1
 ## Editor
 export EDITOR='vim'
 
+# Local CA certificates
+export SSL_CERT_DIR="$HOME/.local/share/ca-certificates"
+
 ## JDK version set
 export JAVA_HOME="$(/usr/libexec/java_home)"
 

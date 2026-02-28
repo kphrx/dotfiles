@@ -26,4 +26,4 @@ zinit snippet OMZL::misc.zsh
 
 # zinit snippet OMZP::git-flow
 
-zinit light asdf-vm/asdf
+# zinit light asdf-vm/asdf

@@ -23,6 +23,9 @@ fi
 
 export MODRINTH_TOKEN={{ (bitwardenFields "item" "modrinth").token.value | quote }}
 
+export OPENAI_API_KEY={{ (bitwardenFields "item" "openai").token.value | quote }}
+export GEMINI_API_KEY={{ (bitwardenFields "item" "gemini").token.value | quote }}
+
 ##    ##
 # PATH #
 ##    ##
@@ -42,7 +45,7 @@ if type brew > /dev/null 2>&1; then
 
     SQLITE_PATH="$(brew --prefix sqlite)/bin"
 
-    POSTGRES_PATH="$(brew --prefix postgresql@17)/bin"
+    POSTGRES_PATH="$(brew --prefix postgresql@18)/bin"
 
     UNZIP_PATH="$(brew --prefix unzip)/bin"
 
@@ -93,6 +96,8 @@ path=("$HOME/.composer/vendor/bin" $path)
 path=("$HOME/.dotnet/tools" $path)
 
 path=("$HOME/.local/bin" $path)
+
+path=("$HOME/.asdf/shims" $path)
 
 ### alternative nvm, fnm
 if type fnm > /dev/null 2>&1; then

@@ -25,9 +25,13 @@
 	gpgSign = true
 [credential]
 	helper = manager
+[credential "https://git.pleroma.social"]
+	provider = generic
 [alias]
 	root = rev-parse --show-toplevel
 	current = branch --show-current
+	fixup = commit --fixup
+	squash = commit --squash
 	graph = log --graph --oneline --decorate=full --date=iso --format=\"%C(yellow)%h%C(reset) %C(magenta)[%ad]%C(reset) %C(cyan)@%an%C(reset)%C(auto)%d%C(reset) %s\"
 [filter "lfs"]
 	clean = git-lfs clean -- %f

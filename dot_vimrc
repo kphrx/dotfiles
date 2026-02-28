@@ -36,6 +36,6 @@ nnoremap <S-q> :w\|bd<CR>
 ## vim-lsp-settings
 g:lsp_settings_filetype_perl = ['slp']
 g:lsp_settings_filetype_html = ['html-languageserver', 'typescript-language-server']
-g:lsp_settings_filetype_typescript = ['typescript-language-server', 'deno']
+g:lsp_settings_filetype_typescript = ['typescript-language-server']
 
 command! LspTSDocumentFormatSync exe 'LspDocumentFormatSync --server=efm-langserver'

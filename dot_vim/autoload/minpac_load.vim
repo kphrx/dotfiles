@@ -37,10 +37,10 @@ export def Init()
   # minpac#add('prabirshrestha/asyncomplete.vim')
   # minpac#add('prabirshrestha/vim-lsp')
   # minpac#add('prabirshrestha/asyncomplete-lsp.vim')
-  minpac#add('girishji/vimcomplete', { name: 'autocomplete.vim' })
+  minpac#add('girishji/vimcomplete')
   minpac#add('yegappan/lsp')
-  minpac#add('mattn/vim-lsp-settings')
-  minpac#add('normen/vim-lsp-settings-adapter')
+  # minpac#add('mattn/vim-lsp-settings')
+  # minpac#add('normen/vim-lsp-settings-adapter')
 
   # minpac#add('dense-analysis/ale')
   # minpac#add('rhysd/vim-lsp-ale')
@@ -63,7 +63,7 @@ export def Init()
   # minpac#add('posva/vim-vue')
   # minpac#add('wuelnerdotexe/vim-astro')
 
-  # minpac#add('chrisbra/csv.vim')
+  minpac#add('chrisbra/csv.vim')
 
   # minpac#add('elixir-editors/vim-elixir', { type: 'opt' })
 
