@@ -9,8 +9,13 @@ sudo ln -sfn $(brew --prefix openjdk)/libexec/openjdk.jdk /Library/Java/JavaVirt
 sudo ln -sfn $(brew --prefix openjdk@21)/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-21.jdk || exit 1
 {{- end }}
 
-rustup default stable || exit 1
-swiftly init --no-modify-profile --skip-install --assume-yes || exit 1
-
-bw config server https://vault.kpherox.dev || exit 1
-bw login || exit 1
+if type rustup > /dev/null 2>&1; then
+  rustup default stable || exit 1
+fi
+if type swiftly > /dev/null 2>&1; then
+  swiftly init --no-modify-profile --skip-install --assume-yes || exit 1
+fi
+if type bw > /dev/null 2>&1; then
+  bw config server https://vault.kpherox.dev || exit 1
+  bw login || exit 1
+fi
