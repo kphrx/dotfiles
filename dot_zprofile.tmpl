@@ -113,7 +113,7 @@ path=("$HOME/.asdf/shims" $path)
 
 ### alternative nvm, fnm
 if type fnm > /dev/null 2>&1; then
-    [[ -z "$FNM_MULTISHELL_PATH" ]] && eval "$(fnm env)"
+    [[ -z "$FNM_MULTISHELL_PATH" ]] && eval "$(fnm env --corepack-enabled --resolve-engines true --log-level error --shell zsh)"
 fi
 
 path=(${(u)path})
