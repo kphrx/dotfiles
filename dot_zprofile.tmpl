@@ -71,9 +71,21 @@ path=($RUSTUP_PATH $FZF_PATH $SQLITE_PATH $POSTGRES_PATH $CURL_PATH $UNZIP_PATH 
 
 ## swift path
 # Added by swiftly
-[ -s "$HOME/Library/Application Support/swiftly/env.sh" ] && . "$HOME/Library/Application Support/swiftly/env.sh"
+if [ -s "$XDG_DATA_HOME/swiftly/env.sh" ]; then
+    . "$XDG_DATA_HOME/swiftly/env.sh"
+elif [ -s "$HOME/.local/share/swiftly/env.sh" ]; then
+    . "$HOME/.local/share/swiftly/env.sh"
+elif [ -s "$HOME/.swiftly/env.sh" ]; then
+    . "$HOME/.swiftly/env.sh"
+elif [ -s "$HOME/Library/Application Support/swiftly/env.sh" ]; then
+    . "$HOME/Library/Application Support/swiftly/env.sh"
+fi
 if [ -f "$(xcode-select -p)/usr/bin/xcodebuild" ] > /dev/null 2>&1; then
-    [ -L "$TOOLCHAIN_PATH" ] && export TOOLCHAINS="$(plutil -extract CFBundleIdentifier raw $TOOLCHAIN_PATH/Info.plist)"
+    if [ -L "$TOOLCHAIN_PATH" ]; then
+        export TOOLCHAINS="$(plutil -extract CFBundleIdentifier raw $TOOLCHAIN_PATH/Info.plist)"
+    elif [ -L "$SWIFTLY_TOOLCHAINS_DIR" ]; then
+        export TOOLCHAINS="$(plutil -extract CFBundleIdentifier raw $SWIFTLY_TOOLCHAINS_DIR/swift-latest.xctoolchain/Info.plist)"
+    fi
 fi
 
 ## Android SDK Platform Tools
