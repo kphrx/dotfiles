@@ -9,3 +9,8 @@
 {{ joinPath .chezmoi.sourceDir "gitignore" "Global" "JetBrains.gitignore" | include }}
 {{ joinPath .chezmoi.sourceDir "gitignore" "Global" "Vim.gitignore" | include }}
 {{ joinPath .chezmoi.sourceDir "gitignore" "Global" "VisualStudioCode.gitignore" | include }}
+
+# AI agents
+.claude/
+.codex/
+.gemini/
