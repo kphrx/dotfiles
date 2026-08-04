@@ -1,12 +1,16 @@
 function load_with_compile {
-  ensure_zcompiled $1
-  builtin source $1
+  local filename="$1"
+  echo "Load: $filename"
+  ensure_zcompiled "$filename"
+  builtin source "$filename"
+  echo "Loaded: $filename"
 }
 function ensure_zcompiled {
+  local filename="$1"
   local compiled="$1.zwc"
-  if [[ ! -r "$compiled" || "$1" -nt "$compiled" ]]; then
-    echo "Compiling $1"
-    zcompile $1
+  if [[ ! -r "$compiled" || "$filename" -nt "$compiled" ]]; then
+    echo "Compiling $filename"
+    zcompile "$filename"
   fi
 }
 ensure_zcompiled ~/.zlogin
