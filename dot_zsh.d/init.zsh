@@ -21,7 +21,7 @@ ZSH_CACHE_DIR="${ZSH}/cache"
 [ -s "${ZSH}/theme.zsh" ] && load_with_compile "${ZSH}/theme.zsh"
 
 ## fzf load
-eval "$(fzf --zsh)"
+[ type fzf > /dev/null 2>&1 ] && eval "$(fzf --zsh)"
 #[ -s "${ZSH}/fzf.zsh" ] && load_with_compile "${ZSH}/fzf.zsh"
 
 ## mc load

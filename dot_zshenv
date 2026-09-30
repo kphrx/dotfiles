@@ -8,7 +8,9 @@ export EDITOR='vim'
 export LOCAL_SSL_CERT_DIR="$HOME/.local/share/ca-certificates"
 
 ## JDK version set
-export JAVA_HOME="$(/usr/libexec/java_home)"
+if [ -x /usr/libexec/java_home ]; then
+    export JAVA_HOME="$(/usr/libexec/java_home)"
+fi
 
 ## Go default build flag
 export GOFLAGS='-trimpath -ldflags=-s -ldflags=-w'

@@ -1,3 +1,6 @@
 [".vim/pack/minpac/opt/minpac"]
     type = "git-repo"
     url = "https://github.com/k-takata/minpac.git"
+[".local/share/zinit/zinit.git"]
+    type = "git-repo"
+    url = "https://github.com/zdharma-continuum/zinit.git"
