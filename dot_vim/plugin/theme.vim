@@ -6,7 +6,12 @@ packadd! solarized
 
 set background=dark
 colorscheme solarized
-g:airline_theme = 'solarized'
+
+## vim-airline
+packadd! vim-airline-themes
+# g:airline_theme = 'solarized'
+g:airline_theme = 'solarized_flood'
+g:airline_solarized_enable_command_color = 1
 
 highlight Normal ctermbg=NONE guibg=NONE
 highlight NonText ctermbg=NONE guibg=NONE
@@ -29,9 +34,6 @@ set numberwidth=5
 
 ## 閉括弧が入力された時、対応する括弧を強調する
 set showmatch
-
-## vim-airline
-packadd! vim-airline-themes
 
 # g:airline_skip_empty_sections = 1
 # g:bufferline_echo = 0
@@ -72,7 +74,7 @@ g:airline_symbols.spell = 'Ꞩ'
 g:airline_symbols.notexists = '∄'
 g:airline_symbols.whitespace = 'Ξ'
 
-g:airline_left_sep = "󾂰"
-g:airline_left_alt_sep = "󾂱"
-g:airline_right_sep = "󾂴"
-g:airline_right_alt_sep = "󾂵"
+g:airline_left_sep = ""
+g:airline_left_alt_sep = ""
+g:airline_right_sep = ""
+g:airline_right_alt_sep = ""
