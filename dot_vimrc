@@ -14,7 +14,7 @@ elseif has('python_compiled')
 endif
 
 set backupdir=$HOME/.vim/backup
-set clipboard=unnamed
+set clipboard^=unnamed,unnamedplus
 set directory=$HOME/.vim/backup
 set hidden
 set incsearch
