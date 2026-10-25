@@ -6,8 +6,10 @@ if [ -S "$SSH_AUTH_SOCK" ]; then
     esac
 elif [ -S $agent ]; then
     export SSH_AUTH_SOCK=$agent
-else
-    echo "no ssh-agent"
+fi
+
+if [[ -z "$DISPLAY" && -z "$WAYLAND_DISPLAY" && "$(tty)" == "/dev/tty1" ]]; then
+  exec start-hyprland
 fi
 
 ## Homebrew env var
@@ -63,11 +65,11 @@ if type brew > /dev/null 2>&1; then
     ZLIB_PKG_CONFIG="$(brew --prefix zlib)/lib/pkgconfig"
 
     export PKG_CONFIG_PATH="ZLIB_PKG_CONFIG:$LIBFFI_PKG_CONFIG:$CURL_PKG_CONFIG:$PKG_CONFIG_PATH"
+
+    path=($RUSTUP_PATH $FZF_PATH $SQLITE_PATH $POSTGRES_PATH $CURL_PATH $UNZIP_PATH $RUBY_PATH $ICU4C_PATH $OPENLDAP_PATH $QT_PATH $path)
+
+    . "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
 fi
-
-path=($RUSTUP_PATH $FZF_PATH $SQLITE_PATH $POSTGRES_PATH $CURL_PATH $UNZIP_PATH $RUBY_PATH $ICU4C_PATH $OPENLDAP_PATH $QT_PATH $path)
-
-. "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
 
 ## swift path
 # Added by swiftly
@@ -80,7 +82,7 @@ elif [ -s "$HOME/.swiftly/env.sh" ]; then
 elif [ -s "$HOME/Library/Application Support/swiftly/env.sh" ]; then
     . "$HOME/Library/Application Support/swiftly/env.sh"
 fi
-if [ -f "$(xcode-select -p)/usr/bin/xcodebuild" ] > /dev/null 2>&1; then
+if type xcode-select > /dev/null 2>&1 && [ -f "$(xcode-select -p)/usr/bin/xcodebuild" ] > /dev/null 2>&1; then
     if [ -L "$TOOLCHAIN_PATH" ]; then
         export TOOLCHAINS="$(plutil -extract CFBundleIdentifier raw $TOOLCHAIN_PATH/Info.plist)"
     elif [ -L "$SWIFTLY_TOOLCHAINS_DIR" ]; then
@@ -103,19 +105,14 @@ else
 fi
 [ -s "$HOME/.deno/env" ] && . "$HOME/.deno/env"
 
-path=("$HOME/.composer/vendor/bin" $path)
-
-path=("$HOME/.dotnet/tools" $path)
-
-path=("$HOME/.local/bin" $path)
-
-path=("$HOME/.asdf/shims" $path)
+path=("$HOME/.asdf/shims" "$HOME/.dotnet/tools" "$HOME/.composer/vendor/bin" $path)
 
 ### alternative nvm, fnm
 if type fnm > /dev/null 2>&1; then
     [[ -z "$FNM_MULTISHELL_PATH" ]] && eval "$(fnm env --corepack-enabled --resolve-engines true --log-level error --shell zsh)"
 fi
 
+path=("$HOME/.local/bin" $path)
 path=(${(u)path})
 
 # Completions
