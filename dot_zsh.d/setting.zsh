@@ -7,9 +7,9 @@ autoload -Uz colors;colors
 export CLICOLOR=1
 
 # Locale and charactor
-export LANG=ja_JP.UTF-8
-export LC_CTYPE=ja_JP.UTF-8
-export LC_ALL=ja_JP.UTF-8
+# export LANG=ja_JP.UTF-8
+# export LC_CTYPE=ja_JP.UTF-8
+# export LC_ALL=ja_JP.UTF-8
 
 # Compilation flags and path
 export LD_LIBRARY_PATH=/usr/local/lib
@@ -44,12 +44,15 @@ setopt share_history          # share command history data
 set -g set-titles on
 set -g set-titles-string '#W'
 
-# path cleaning
-
 ## allow directories only (-/)
 ## reject world-writable directories (^W)
 fpath=(${ASDF_DIR}/completions $fpath)
+
+manpath=(~/.local/share/man $manpath)
+
+# path cleaning
 fpath=(${(u)fpath})
+manpath=(${(u)manpath})
 
 ## Enable completion
 autoload -Uz compinit

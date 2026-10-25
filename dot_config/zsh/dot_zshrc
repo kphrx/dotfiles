@@ -1,3 +1,5 @@
+# zmodload zsh/zprof && zprof
+
 function load_with_compile {
   local filename="$1"
   echo "Load: $filename"
@@ -54,7 +56,6 @@ export MINECRAFT_DIR="${HOME}/Library/Application Support/minecraft"
 
 # export TOOLCHAINS="swift"
 
-# zsh startup speed
 # if (which zprof > /dev/null 2>&1) ;then
 #     zprof
 # fi
