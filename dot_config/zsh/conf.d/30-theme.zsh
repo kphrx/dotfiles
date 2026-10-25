@@ -28,7 +28,7 @@ case "$ZSH_THEME" in
         fi
         ;;
     "random")
-        themes=($ZSH/themes/*.zsh-theme)
+        themes=(${ZDOTDIR}/themes/*.zsh-theme)
         N="${#themes[@]}"
         ((N=(RANDOM%N)+1))
         RANDOM_THEME=${themes[$N]}
@@ -36,10 +36,10 @@ case "$ZSH_THEME" in
         echo "[oh-my-zsh] Random theme '$RANDOM_THEME' loaded..."
         ;;
     *)
-        if [ -f "$ZSH/$ZSH_THEME.zsh-theme" ]; then
-            source "$ZSH/$ZSH_THEME.zsh-theme"
+        if [ -f "${ZDOTDIR}/${ZSH_THEME}.zsh-theme" ]; then
+            source "${ZDOTDIR}/${ZSH_THEME}.zsh-theme"
         else
-            source "$ZSH/themes/$ZSH_THEME.zsh-theme"
+            source "${ZDOTDIR}/themes/${ZSH_THEME}.zsh-theme"
         fi
         ;;
 esac

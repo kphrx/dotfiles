@@ -1,6 +1,6 @@
 # zplug "mafredri/zsh-async", from:"github", use:"async.zsh"
 
-[ type zinit > /dev/null 2>&1 ] || . ~/.local/share/zinit/zinit.git/zinit.zsh
+[ type zinit > /dev/null 2>&1 ] || . "${XDG_DATA_HOME}/zinit/zinit.git/zinit.zsh"
 
 zinit ice pick"async.zsh" from"github"
 zinit light mafredri/zsh-async

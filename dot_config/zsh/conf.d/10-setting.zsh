@@ -18,9 +18,6 @@ export LDFLAGS="-L/usr/local/lib"
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 # export ARCHFLAGS="-arch x86_64"
 
-# Pager
-export PAGER=less
-
 # History size
 # export HISTFILE=~/.zsh/history
 export HISTSIZE=500000
@@ -48,7 +45,7 @@ set -g set-titles-string '#W'
 ## reject world-writable directories (^W)
 fpath=(${ASDF_DIR}/completions $fpath)
 
-manpath=(~/.local/share/man $manpath)
+manpath=(${XDG_DATA_HOME}/man $manpath)
 
 # path cleaning
 fpath=(${(u)fpath})
