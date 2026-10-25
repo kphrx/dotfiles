@@ -7,6 +7,7 @@ function load_with_compile {
   builtin source "$filename"
   echo "Loaded: $filename"
 }
+
 function ensure_zcompiled {
   local filename="$1"
   local compiled="$1.zwc"
@@ -15,17 +16,35 @@ function ensure_zcompiled {
     zcompile "$filename"
   fi
 }
-ensure_zcompiled ~/.zlogin
-ensure_zcompiled ~/.zprofile
-ensure_zcompiled ~/.zshenv
-ensure_zcompiled ~/.zshrc
-ensure_zcompiled ~/.zlogout
+
+function zcompile_files {
+    if [ -f ~/.zshenv ]; then
+        ensure_zcompiled ~/.zshenv
+    fi
+    if [ -f "${ZDOTDIR}/.zprofile" ]; then
+        ensure_zcompiled "${ZDOTDIR}/.zprofile"
+    fi
+    if [ -f "${ZDOTDIR}/.zshrc" ]; then
+        ensure_zcompiled "${ZDOTDIR}/.zshrc"
+    fi
+    if [ -f "${ZDOTDIR}/.zlogin" ]; then
+        ensure_zcompiled "${ZDOTDIR}/.zlogin"
+    fi
+    if [ -f "${ZDOTDIR}/.zlogout" ]; then
+        ensure_zcompiled "${ZDOTDIR}/.zlogout"
+    fi
+}
+
+zcompile_files
 
 # Prompt theme
 ZSH_THEME="powerline"
 
 # Core settings
-[ -s "${HOME}/.zsh.d/init.zsh" ] && load_with_compile "${HOME}/.zsh.d/init.zsh"
+for config in $ZDOTDIR/conf.d/*.zsh; do
+  load_with_compile "$config"
+done
+unset config
 
 ##########################
 ##                      ##
