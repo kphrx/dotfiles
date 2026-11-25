@@ -14,7 +14,9 @@ elseif has('python_compiled')
 endif
 
 set backupdir=$HOME/.vim/backup
-set clipboard^=unnamed,unnamedplus
+set clipboard&
+set clipboard^=unnamed
+set clipboard^=unnamedplus
 set directory=$HOME/.vim/backup
 set hidden
 set incsearch
@@ -23,6 +25,7 @@ set completeopt=menuone
 set ttimeoutlen=50
 set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
 set grepprg=grep\ -nh
+set autoread
 
 set runtimepath+=/usr/local/opt/fzf
 

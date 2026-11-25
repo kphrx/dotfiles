@@ -1,0 +1,67 @@
+[packages.darwin]
+formula = [
+  "chezmoi",
+  "bitwarden-cli",
+
+  "git",
+  "ghq",
+  "vim",
+  "zsh",
+  "zsh-completions",
+  "zinit",
+
+  "rustup",
+  "swiftly",
+
+  "openjdk",
+  "openjdk@25",
+  "openjdk@21",
+  "openjdk@17",
+]
+casks = [
+  "git-credential-manager",
+  "firefox@nightly",
+
+  "codex",
+
+  "steam",
+  "minecraft",
+  "modrinth",
+]
+cargo = [
+  "cargo-binstall",
+  "cargo-run-bin",
+  "cargo-update",
+  "git-gone",
+  "gitoxide",
+]
+
+[packages.arch]
+pacman = [
+  "chezmoi",
+  "bitwarden-cli",
+
+  "git",
+  "ghq",
+  "gvim",
+  "zsh",
+
+  "rustup",
+  "cargo-binstall",
+  "cargo-run-bin",
+  "cargo-update",
+  "gitoxide",
+
+  "fcitx5",
+  "fcitx5-mozc",
+
+  "firefox",
+
+  "openai-codex",
+
+  "steam",
+  "modrinth-app",
+]
+cargo = [
+  "git-gone",
+]

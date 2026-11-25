@@ -52,6 +52,8 @@ export def Init()
 
   minpac#add('cohama/lexima.vim')
 
+  minpac#add('alker0/chezmoi.vim')
+
   # minpac#add('qnighy/lalrpop.vim')
 
   # minpac#add('stephenway/postcss.vim')

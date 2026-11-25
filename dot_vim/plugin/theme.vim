@@ -12,6 +12,8 @@ packadd! vim-airline-themes
 # g:airline_theme = 'solarized'
 g:airline_theme = 'solarized_flood'
 g:airline_solarized_enable_command_color = 1
+g:airline_experimental = 1
+g:airline_multiline = 1
 
 highlight Normal ctermbg=NONE guibg=NONE
 highlight NonText ctermbg=NONE guibg=NONE

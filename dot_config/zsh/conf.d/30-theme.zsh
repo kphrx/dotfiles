@@ -5,7 +5,7 @@ function powerline_precmd() {
       "$PWL_CMD" -eval -shell zsh \
         -error $? \
         -east-asian-width \
-        -modules nix-shell,venv,vgo,ssh,host,cwd,perms,git,jobs,exit,newline,user,root \
+        -modules nix-shell,venv,vgo,ssh,host,user,cwd,newline,git,newline,perms,root,jobs,exit \
         -cwd-max-depth 3 \
     )"
 }

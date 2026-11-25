@@ -43,7 +43,7 @@ set -g set-titles-string '#W'
 
 ## allow directories only (-/)
 ## reject world-writable directories (^W)
-fpath=(${ASDF_DIR}/completions $fpath)
+fpath=(${ZDOTDIR}/functions $fpath)
 
 manpath=(${XDG_DATA_HOME}/man $manpath)
 

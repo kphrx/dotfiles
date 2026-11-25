@@ -1,12 +1,30 @@
 #!/bin/bash
 
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if eq .osid "darwin" -}}
+# macOS specific code
 bash -c "$(curl -fsSL https://github.com/Homebrew/install/raw/master/install.sh)" || exit 1
-brew bundle --no-lock --file={{ joinPath .chezmoi.sourceDir "Brewfile" | quote }} || exit 1
+brew bundle --file=/dev/stdin <<EOF
+{{ range .packages.darwin.formula -}}
+brew {{ . | quote }}
+{{ end -}}
+{{ range .packages.darwin.casks -}}
+cask {{ . | quote }}
+{{ end -}}
+EOF
+
+brew tap domt4/autoupdate
+brew trust --command domt4/autoupdate/autoupdate
+
 brew autoupdate start $HOMEBREW_AUTO_UPDATE_SECS --upgrade --cleanup --sudo || exit 1
 
 sudo ln -sfn $(brew --prefix openjdk)/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk || exit 1
+sudo ln -sfn $(brew --prefix openjdk@25)/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-25.jdk || exit 1
 sudo ln -sfn $(brew --prefix openjdk@21)/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-21.jdk || exit 1
+sudo ln -sfn $(brew --prefix openjdk@17)/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk || exit 1
+{{- else if eq .osid "linux-arch" -}}
+# Arch Linux specific code
+doas pacman -Sy {{ .packages.arch.pacman | quoteList | join " " }}
+git clone https://github.com/zdharma-continuum/zinit.git ~/.local/share/zinit/zinit.git
 {{- end }}
 
 if type rustup > /dev/null 2>&1; then
@@ -15,6 +33,17 @@ fi
 if type swiftly > /dev/null 2>&1; then
   swiftly init --no-modify-profile --skip-install --assume-yes || exit 1
 fi
+
+{{ if eq .osid "darwin" -}}
+brew bundle --file=/dev/stdin <<EOF
+{{ range .packages.darwin.cargo -}}
+cargo {{ . | quote }}
+{{ end -}}
+EOF
+{{- else if eq .osid "linux-arch" -}}
+cargo install {{ .packages.arch.cargo | quoteList | join " " }}
+{{- end }}
+
 if type bw > /dev/null 2>&1; then
   bw config server https://vault.kpherox.dev || exit 1
   bw login || exit 1

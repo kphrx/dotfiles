@@ -1,7 +1,13 @@
-{{- $codespaces:= env "CODESPACES" | not | not -}}
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
+{{- $codespaces := env "CODESPACES" | not | not -}}
+
 sourceDir = {{ .chezmoi.sourceDir | quote }}
 
 [data]
+    osid = {{ $osid | quote }}
     codespaces = {{ $codespaces }}
 {{- if $codespaces }}{{/* Codespaces dotfiles setup is non-interactive, so set an email address */}}
     name = "kPherox"
