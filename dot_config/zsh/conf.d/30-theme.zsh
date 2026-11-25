@@ -1,9 +1,10 @@
 
 function powerline_precmd() {
-    PWL_CMD="$(which powerline-go)"
+    local exit_status=$?
+    local pwl_cmd="$(which powerline-go)"
     eval "$(
-      "$PWL_CMD" -eval -shell zsh \
-        -error $? \
+      "$pwl_cmd" -eval -shell zsh \
+        -error $exit_status \
         -east-asian-width \
         -modules nix-shell,venv,vgo,ssh,host,user,cwd,newline,git,newline,perms,root,jobs,exit \
         -cwd-max-depth 3 \
