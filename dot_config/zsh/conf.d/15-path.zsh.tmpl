@@ -1,18 +1,3 @@
-agent="$HOME/.ssh/ssh-agent-$USER"
-if [ -S "$SSH_AUTH_SOCK" ]; then
-    case $SSH_AUTH_SOCK in
-    /**/agent.[0-9]*)
-        ln -snf "$SSH_AUTH_SOCK" $agent && export SSH_AUTH_SOCK=$agent
-    esac
-elif [ -S $agent ]; then
-    export SSH_AUTH_SOCK=$agent
-fi
-
-if [[ -z "$DISPLAY" && -z "$WAYLAND_DISPLAY" && "$(tty)" == "/dev/tty1" ]]; then
-  exec start-hyprland
-fi
-
-## Homebrew env var
 if type brew > /dev/null 2>&1 && [[ -z "$HOMEBREW_PREFIX" ]]; then
     eval "$(brew shellenv)"
     export HOMEBREW_GITHUB_API_TOKEN={{ (bitwardenFields "item" "homebrew").github_token.value | quote }}
@@ -24,15 +9,9 @@ if type brew > /dev/null 2>&1 && [[ -z "$HOMEBREW_PREFIX" ]]; then
 fi
 
 export MODRINTH_TOKEN={{ (bitwardenFields "item" "modrinth").token.value | quote }}
-
 export OPENAI_API_KEY={{ (bitwardenFields "item" "openai").token.value | quote }}
 export GEMINI_API_KEY={{ (bitwardenFields "item" "gemini").token.value | quote }}
 
-##    ##
-# PATH #
-##    ##
-
-## Homebrew
 if type brew > /dev/null 2>&1; then
     RUSTUP_PREFIX="$(brew --prefix rustup)"
     OPENLDAP_PREFIX="$(brew --prefix openldap)"
@@ -71,8 +50,6 @@ if type brew > /dev/null 2>&1; then
     . "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
 fi
 
-## swift path
-# Added by swiftly
 if [ -s "$XDG_DATA_HOME/swiftly/env.sh" ]; then
     . "$XDG_DATA_HOME/swiftly/env.sh"
 elif [ -s "$HOME/.local/share/swiftly/env.sh" ]; then
@@ -90,9 +67,7 @@ if type xcode-select > /dev/null 2>&1 && [ -f "$(xcode-select -p)/usr/bin/xcodeb
     fi
 fi
 
-## Android SDK Platform Tools
 ANDROID_SDK="/usr/local/share/android-commandlinetools"
-
 path=("$ANDROID_SDK/platform-tools" $path)
 
 [ -L "$GEM_HOME" ] && path=("$GEM_HOME/bin" $path)
@@ -112,7 +87,6 @@ if type fnm > /dev/null 2>&1; then
     [[ -z "$FNM_MULTISHELL_PATH" ]] && eval "$(fnm env --corepack-enabled --resolve-engines true --log-level error --shell zsh)"
 fi
 
-path=("$HOME/.local/bin" $path)
 path=(${(u)path})
 
 # Completions
@@ -122,6 +96,6 @@ if type brew > /dev/null 2>&1; then
     fpath=($RUSTUP_FPATH /usr/local/Homebrew/completions/zsh $fpath)
 fi
 
-fpath=($HOME/.zsh.d/functions $fpath)
+fpath=($ZDOTDIR/functions $fpath)
 
 fpath=(${(u)fpath})
